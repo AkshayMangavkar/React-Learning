@@ -1,0 +1,22 @@
+.user-container {
+    background-color: rgb(236, 204, 163);
+    padding: 20 px;
+    color: black;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.7rem;
+    align-items: center;
+    display: flex;
+    margin: 1rem;
+
+}
+
+#user-image {
+    height: 150px;          /* Set a fixed height */
+    width: 150px;           /* Set the same width */
+    object-fit: cover;      /* Crop the image to fill the circle */
+    border-radius: 50%;     /* Make it a perfect circle */
+    border: 2px solid #23342a;
+
+
+}
