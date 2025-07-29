@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI("AIzaSyCey7JzxXcqrGavUvdBnaYkNsgq2aWbkZA");
+const genAI = new GoogleGenerativeAI("");
 const MODEL_NAME = "gemini-pro"; // Current working model name
 const RATE_LIMIT_DELAY = 30000; // 30 seconds cooldown
 const DAILY_LIMIT = 60; // Free tier daily limit
