@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI("");
-const MODEL_NAME = "gemini-pro"; // Current working model name
-const RATE_LIMIT_DELAY = 30000; // 30 seconds cooldown
-const DAILY_LIMIT = 60; // Free tier daily limit
+const ai = new GoogleGenAI({
+  apiKey: ""  // Add your API key here
+});
+const MODEL_NAME = "gemini-2.5-flash";
+const RATE_LIMIT_DELAY = 30000;
+const DAILY_LIMIT = 60;
 
 // Local cache for common questions
 const responseCache = new Map();
@@ -25,18 +27,13 @@ export default function useChat() {
   const messagesEndRef = useRef(null);
 
   // System instruction for focused DSA responses
-  const systemInstruction = {
-    role: "model",
-    parts: [{
-      text: `You are an expert Data Structures and Algorithms (DSA) instructor. Follow these rules:
+  const systemInstruction = `You are an expert Data Structures and Algorithms (DSA) instructor. Follow these rules:
 1. Only answer DSA-related questions
 2. For non-DSA questions, respond: "I specialize in Data Structures and Algorithms."
 3. Provide clear explanations with examples
 4. Include time/space complexity analysis
 5. Format code answers properly
-6. Keep responses concise but comprehensive`
-    }]
-  };
+6. Keep responses concise but comprehensive`;
 
   // Auto-scroll to newest message
   const scrollToBottom = () => {
@@ -117,32 +114,26 @@ export default function useChat() {
     setIsTyping(true);
 
     try {
-      // Initialize model with optimized settings
-      const model = genAI.getGenerativeModel({
-        model: MODEL_NAME,
-        systemInstruction: systemInstruction,
-        generationConfig: {
-          maxOutputTokens: 1000,
-          temperature: 0.5
-        }
-      });
+      // Create structured prompt
+      const fullPrompt = `${systemInstruction}
+      
+      [DSA Question]
+      ${input}
+      
+      Please provide:
+      1. Concept explanation
+      2. Time/Space complexity
+      3. Code implementation
+      4. Alternative approaches`;
 
-      // Generate content with structured prompt
-      const result = await model.generateContent({
-        contents: [{ 
-          role: 'user', 
-          parts: [{ 
-            text: `[DSA Question] ${input}\n\nPlease provide:
-1. Concept explanation
-2. Time/Space complexity
-3. Code implementation
-4. Alternative approaches` 
-          }] 
-        }]
+      // Generate content with new API
+      const response = await ai.models.generateContent({
+        model: MODEL_NAME,
+        contents: fullPrompt
       });
       
-      const response = await result.response;
-      const text = response.text();
+      // Get response text
+      const text = response.text;
 
       // Cache and display response
       cacheResponse(cacheKey, text);
