@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({
-  apiKey: ""  // Add your API key here
+  apiKey: "AIzaSyCbg7zjQLx9gl1h9My9oa_79yBM1Yy-Jqk"  
 });
 const MODEL_NAME = "gemini-2.5-flash";
 const RATE_LIMIT_DELAY = 30000;
@@ -16,7 +16,7 @@ export default function useChat() {
     {
       id: 1,
       text: "I'm your DSA Instructor. Ask me anything about Data Structures and Algorithms!",
-      sender: 'bot',
+      sender: 'DSA Instructor',
       timestamp: new Date().toISOString()
     }
   ]);
@@ -58,7 +58,7 @@ export default function useChat() {
     setMessages(prev => [...prev, {
       id: prev.length + 1,
       text,
-      sender: 'bot',
+      sender: 'DSA Instructor',
       timestamp: new Date().toISOString()
     }]);
   };

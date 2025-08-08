@@ -102,3 +102,98 @@
   font-size: 0.7rem;
   color: #666;
 }
+
+/* ✅ Markdown Styles */
+.bubble strong {
+  font-weight: bold;
+}
+
+.bubble em {
+  font-style: italic;
+}
+
+.bubble code {
+  background-color: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.bubble pre {
+  background-color: #f4f4f4;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border: 1px solid #ddd;
+}
+
+/* For tables inside markdown */
+.table-container {
+  overflow-x: auto;
+}
+
+.bubble table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.bubble th,
+.bubble td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.bubble th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.message-container {
+  will-change: transform, opacity;
+}
+
+.bubble {
+  will-change: transform, opacity;
+}
+
+.metadata {
+  will-change: opacity;
+}
